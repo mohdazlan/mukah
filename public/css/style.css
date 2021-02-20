@@ -27,3 +27,15 @@ footer>.container, footer .row {
 }
 
 .card-block{padding:15px}
+
+.w30{width:30%}
+
+.w20{width:20%}
+
+.w10{width:10%}
+
+.w5{width:5%}
+
+.articles{margin-top: 15px;}
+
+.article-inline:nth-child(odd){background:rgba(0,0,0,0.05)}
