@@ -23,16 +23,22 @@ mongoose
     console.log(con.connections);
     console.log('DB Connection successfull');
   });
-let post1 = new Post({
-  title: 'KLCC',
-  date: new Date(),
-  description: 'Some description',
-  text: 'Just some text',
-  country: 'Malaysia',
-  imageURL: './images.jpeg',
-});
 
-post1.save();
+app.get('/posts', async (req, resp) => {
+  let posts = await Post.find();
+  resp.send(posts);
+});
+// let post1 = new Post({
+//   id: 3,
+//   title: 'Lagos',
+//   date: new Date(),
+//   description: 'Some description',
+//   text: 'Just some text',
+//   country: 'Nigeria',
+//   imageURL: './imageMukah.jpeg',
+// });
+
+// post1.save();
 
 app.use(express.static('public'));
 
