@@ -1,3 +1,5 @@
+let addPostBtn = document.querySelector('.create-post-btn');
+
 document.addEventListener('DOMContentLoaded', async function () {
   let posts = await getPosts();
   let articles = document.querySelector('.articles');
@@ -14,4 +16,13 @@ class="d-flex justify-content-between align-items-center article-inline">
 </article>`;
     articles.insertAdjacentHTML('afterend', postHTML);
   });
+});
+
+addPostBtn.addEventListener('click', function () {
+  let articlesTab = document.getElementById('v-pills-articles');
+  articlesTab.classList.remove('show');
+  articlesTab.classList.remove('active');
+  let createTab = document.getElementById('v-pills-create-post');
+  createTab.classList.add('show');
+  createTab.classList.add('active');
 });
