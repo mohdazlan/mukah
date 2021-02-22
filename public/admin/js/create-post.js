@@ -13,7 +13,7 @@ createForm.addEventListener('submit', function (e) {
   data.append('country', createCountry.value);
   data.append('imageUrl', createImageUrl.value);
   data.append('text', text);
-  data.append('description', text.indexOf('.') + 1);
+  data.append('description', text.substring(0, text.indexOf('.') + 1));
   data.append('imageFile', createImageFile.files[0]);
 
   fetch('http://localhost:9900/posts', {
@@ -22,4 +22,19 @@ createForm.addEventListener('submit', function (e) {
   })
     .then((response) => response.text())
     .then((data) => window.history.go());
+});
+
+function disableInput(input1, input2) {
+  if (input1.value) {
+    input2.disabled = true;
+  } else {
+    input2.disabled = false;
+  }
+}
+
+createImageUrl.addEventListener('change', function () {
+  disableInput(this, createImageFile);
+});
+createImageFile.addEventListener('change', function () {
+  disableInput(this, createImageUrl);
 });
