@@ -3,22 +3,22 @@ let createTitle = document.querySelector('#create-title');
 let createCountry = document.querySelector('#create-country');
 let createImageUrl = document.querySelector('#create-image-url');
 let createText = document.querySelector('#create-text');
+let createImageFile = document.querySelector('#create-image-file');
 
 createForm.addEventListener('submit', function (e) {
   e.preventDefault();
   let text = createText.value;
+  let data = new FormData();
+  data.append('title', createTitle.value);
+  data.append('country', createCountry.value);
+  data.append('imageUrl', createImageUrl.value);
+  data.append('text', text);
+  data.append('description', text.indexOf('.') + 1);
+  data.append('imageFile', createImageFile.files[0]);
+
   fetch('http://localhost:9900/posts', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title: createTitle.value,
-      country: createCountry.value,
-      imageUrl: createImageUrl.value,
-      text: createText.value,
-      description: text.substring(0, text.indexOf('.') + 1),
-    }),
+    body: data,
   })
     .then((response) => response.text())
     .then((data) => window.history.go());

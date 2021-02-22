@@ -1,9 +1,17 @@
 let express = require('express');
 let app = express();
-app.use(express.json());
-const dotenv = require('dotenv');
 let mongoose = require('mongoose');
+let multer = require('multer');
 let Post = require('./models/posts');
+
+const dotenv = require('dotenv');
+
+app.use(express.json());
+let imageStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'public/images'),
+  filename: (req, file, cb) => cb(null, file.originalname),
+});
+app.use(multer({ storage: imageStorage }).single('imageFile'));
 
 dotenv.config({ path: './config.env' });
 
@@ -25,6 +33,7 @@ mongoose
   });
 
 let id = 10;
+
 app.get('/posts', async (req, resp) => {
   let posts = await Post.find();
   resp.send(posts);
@@ -41,7 +50,10 @@ app.post('/posts', async (req, resp) => {
     country: reqBody.country,
     imageURL: reqBody.imageUrl,
   });
-  await newPost.save();
+  console.log(newPost);
+
+  console.log(req.file);
+  // await newPost.save();
   resp.send('Created');
 });
 // let post1 = new Post({
