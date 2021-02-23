@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let postSchema = new Schema({
-  id: Number,
+  id: String,
   title: String,
   date: Date,
   description: String,
